@@ -1,8 +1,8 @@
 import UIKit
 import CoreData
 
-class ItemListViewController: UITableViewController, UISearchResultsUpdating {
-
+final class ItemListViewController: UITableViewController, UISearchResultsUpdating {
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var items = [Item]()
@@ -54,17 +54,14 @@ class ItemListViewController: UITableViewController, UISearchResultsUpdating {
 
 extension ItemListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !searchController.searchBar.text!.isEmpty {
-            return searchResults.count
-        } else {
-            return items.count
-        }
+        return isSearchBarEmpty ? items.count : searchResults.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(for: indexPath)
-        let item = !searchController.searchBar.text!.isEmpty ? searchResults[indexPath.row] : items[indexPath.row]
         
+        let item = isSearchBarEmpty ? items[indexPath.row] : searchResults[indexPath.row]
+
         cell.textLabel?.text = item.title
         cell.accessoryType = item.done ? .checkmark : .none
         cell.selectionStyle = .none
@@ -72,6 +69,14 @@ extension ItemListViewController {
         cell.backgroundColor = UIColor(named: "Primary")
         
         return cell
+    }
+    
+    private var isSearchBarEmpty: Bool {
+        if let text = searchController.searchBar.text, text.isEmpty {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

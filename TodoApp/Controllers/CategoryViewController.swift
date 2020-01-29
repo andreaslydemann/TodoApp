@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class CategoryViewController: UITableViewController {
+final class CategoryViewController: UITableViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
