@@ -17,6 +17,7 @@
 		8E95147823C11A040012D76D /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95147623C11A040012D76D /* ItemListViewController.swift */; };
 		8E95147B23C148E00012D76D /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95147A23C148E00012D76D /* UIColor+Ext.swift */; };
 		8E95147D23C153400012D76D /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95147C23C153400012D76D /* UITableView+Ext.swift */; };
+		8ECA6B9F23E867A3004CD49E /* CoreDataConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECA6B9E23E867A3004CD49E /* CoreDataConnection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		8E95147623C11A040012D76D /* ItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
 		8E95147A23C148E00012D76D /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		8E95147C23C153400012D76D /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		8ECA6B9E23E867A3004CD49E /* CoreDataConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataConnection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				8E95147A23C148E00012D76D /* UIColor+Ext.swift */,
 				8E95147C23C153400012D76D /* UITableView+Ext.swift */,
+				8ECA6B9E23E867A3004CD49E /* CoreDataConnection.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				8E95147B23C148E00012D76D /* UIColor+Ext.swift in Sources */,
 				8E95147D23C153400012D76D /* UITableView+Ext.swift in Sources */,
 				8E95146523C117B70012D76D /* TodoApp.xcdatamodeld in Sources */,
+				8ECA6B9F23E867A3004CD49E /* CoreDataConnection.swift in Sources */,
 				8E95147823C11A040012D76D /* ItemListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

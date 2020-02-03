@@ -3,9 +3,13 @@ import CoreData
 
 final class CategoryViewController: UITableViewController {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var categories = [Category]()
+    private var coreDataConnection: CoreDataConnection!
     
-    var categories = [Category]()
+    convenience init(coreDataConnection: CoreDataConnection) {
+        self.init()
+        self.coreDataConnection = coreDataConnection
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,19 +68,21 @@ extension CategoryViewController {
         let contextItem = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (contextualAction, view, boolValue) in
             guard let self = self else { return }
             
-            self.context.delete(self.categories[indexPath.row])
-            self.categories.remove(at: indexPath.row)
-            self.saveCategories()
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.coreDataConnection.deleteManagedObject(managedObject: self.categories[indexPath.row]) { result in
+                if result {
+                    self.categories.remove(at: indexPath.row)
+                    self.saveCategories()
+                    
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
         }
         
         return UISwipeActionsConfiguration(actions: [contextItem])
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ItemListViewController()
-        vc.selectedCategory = categories[indexPath.row]
+        let vc = ItemListViewController(selectedCategory: categories[indexPath.row], coreDataConnection: .shared)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -84,24 +90,19 @@ extension CategoryViewController {
 // MARK: - Data Manipulation Methods
 
 extension CategoryViewController {
+    func createNewCategory() -> Category {
+        return Category(context: self.coreDataConnection.persistentContainer.viewContext)
+    }
+    
     func saveCategories() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving category \(error)")
-        }
+        self.coreDataConnection.saveContext()
     }
     
     func loadCategories() {
-        let request : NSFetchRequest<Category> = Category.fetchRequest()
-        
-        do {
-            categories = try context.fetch(request)
-        } catch {
-            print("Error loading categories \(error)")
+        if let categories = coreDataConnection.fetchManagedObjects(Category.self) as? [Category] {
+            self.categories = categories
+            tableView.reloadData()
         }
-        
-        tableView.reloadData()
     }
 }
 
@@ -121,7 +122,7 @@ extension CategoryViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] action in
             guard let self = self else { return }
             
-            let newCategory = Category(context: self.context)
+            let newCategory = self.createNewCategory()
             newCategory.title = textField.text!
             
             self.categories.append(newCategory)

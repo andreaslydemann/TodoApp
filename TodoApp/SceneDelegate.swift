@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window.windowScene = windowScene
 
-        window.rootViewController = UINavigationController(rootViewController: CategoryViewController())
+        window.rootViewController = UINavigationController(rootViewController: CategoryViewController(coreDataConnection: .shared))
         window.makeKeyAndVisible()
     }
 }
