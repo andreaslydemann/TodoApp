@@ -10,13 +10,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         defer { self.window = window }
 
         window.windowScene = windowScene
-        
-        LogService.register(provider: ConsoleLogProvider())
-        LogService.register(provider: FileLogProvider(filePath: "/Users/andreaslydemann/Desktop"))
 
-        let categoryVC = CategoryViewController(coreDataConnection: .shared, logService: .shared)
-        
-        window.rootViewController = UINavigationController(rootViewController: categoryVC)
+        window.rootViewController = UINavigationController(rootViewController: CategoryViewController(coreDataConnection: .shared))
         window.makeKeyAndVisible()
     }
 }

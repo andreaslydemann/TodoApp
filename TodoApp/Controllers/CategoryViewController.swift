@@ -5,12 +5,10 @@ final class CategoryViewController: UITableViewController {
     
     private var categories = [Category]()
     private var coreDataConnection: CoreDataConnection!
-    private var logService: LogService!
     
-    convenience init(coreDataConnection: CoreDataConnection, logService: LogService) {
+    convenience init(coreDataConnection: CoreDataConnection) {
         self.init()
         self.coreDataConnection = coreDataConnection
-        self.logService = logService
     }
     
     override func viewDidLoad() {
@@ -131,8 +129,6 @@ extension CategoryViewController {
             
             self.saveCategories()
             self.tableView.reloadData()
-            
-            self.logService.info("Category was added.")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
